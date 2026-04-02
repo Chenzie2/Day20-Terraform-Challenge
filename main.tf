@@ -8,15 +8,14 @@ terraform {
     }
   }
 
-  backend "s3" {
-    bucket         = "grace-zawadi-terraform-state-2026"
-    key            = "day20/terraform.tfstate"
-    region         = "us-east-1"
-    dynamodb_table = "terraform-state-locks"
-    encrypt        = true
+  cloud {
+    organization = "grace-zawadi-tf"
+
+    workspaces {
+      name = "webserver-cluster-dev"
+    }
   }
 }
-
 variable "cluster_name" {
   type        = string
   description = "Name prefix for all cluster resources"
